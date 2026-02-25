@@ -47,8 +47,8 @@ const fragmentShader = `
 
     vec3 color = mix(uColorWarm, uColorCool, gradient);
 
-    // Soften edges with fresnel — makes it feel atmospheric
-    float alpha = uOpacity * (0.4 + fresnel * 0.6);
+    // Soften edges with fresnel — visible core, soft edges
+    float alpha = uOpacity * (0.6 + fresnel * 0.4);
 
     gl_FragColor = vec4(color, alpha);
   }
@@ -76,7 +76,7 @@ function AmbientBlob(): React.JSX.Element {
       uNoiseAmp: { value: 0.15 },
       uColorWarm: { value: new THREE.Color('#FF6B35') },
       uColorCool: { value: new THREE.Color('#3B82F6') },
-      uOpacity: { value: 0.08 },
+      uOpacity: { value: 0.25 },
     }),
     [],
   );
@@ -97,10 +97,10 @@ function AmbientBlob(): React.JSX.Element {
     // Slow mouse parallax
     const mc = mouseCurrent.current;
     const mt = mouseTarget.current;
-    mc.x += (mt.x - mc.x) * 0.02;
-    mc.y += (mt.y - mc.y) * 0.02;
-    mesh.rotation.y = mc.x * 0.15;
-    mesh.rotation.x = -mc.y * 0.15;
+    mc.x += (mt.x - mc.x) * 0.05;
+    mc.y += (mt.y - mc.y) * 0.05;
+    mesh.rotation.y = mc.x * 0.4;
+    mesh.rotation.x = -mc.y * 0.4;
 
     // Slow vertex displacement
     const geo = mesh.geometry;

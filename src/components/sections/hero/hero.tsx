@@ -57,9 +57,7 @@ export function Hero({
     >
       {/* Ambient blob — background layer */}
       <HeroBlobFallback />
-      <div className="hidden lg:block">
-        <HeroBlobDynamic />
-      </div>
+      <HeroBlobDynamic />
 
       {/* Content — foreground */}
       <div className="container-main relative z-10 py-3xl">
