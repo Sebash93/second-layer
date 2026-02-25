@@ -6,7 +6,7 @@ import { cva } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
 
 const trackVariants = cva(
-  'w-[44px] h-[24px] rounded-[12px] relative cursor-pointer transition-colors duration-300 border-none p-0 focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-accent-tint-12',
+  'relative h-[24px] w-[44px] cursor-pointer rounded-[12px] border-none p-0 transition-colors duration-300 focus-visible:ring-[3px] focus-visible:ring-accent-tint-12 focus-visible:outline-none',
   {
     variants: {
       checked: {
@@ -14,7 +14,7 @@ const trackVariants = cva(
         false: 'bg-border-default',
       },
       disabled: {
-        true: 'opacity-50 cursor-not-allowed',
+        true: 'cursor-not-allowed opacity-50',
         false: '',
       },
     },

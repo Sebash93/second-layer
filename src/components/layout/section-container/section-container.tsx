@@ -10,7 +10,7 @@ const sectionContainerVariants = cva('', {
       narrow: 'container-narrow',
     },
     fullHeight: {
-      true: 'min-h-svh flex flex-col justify-center py-3xl',
+      true: 'flex min-h-svh flex-col justify-center py-3xl',
       false: 'py-4xl',
     },
   },

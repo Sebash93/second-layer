@@ -68,7 +68,7 @@ export const InlineListDifferentGaps: Story = {
     <div className="flex flex-col gap-xl">
       {(['sm', 'md', 'lg', 'xl'] as const).map((gap) => (
         <div key={gap}>
-          <p className="mb-sm font-body text-[12px] font-semibold tracking-[0.08em] uppercase text-text-body">
+          <p className="mb-sm font-body text-[12px] font-semibold tracking-[0.08em] text-text-body uppercase">
             gap: {gap}
           </p>
           <InlineList gap={gap}>

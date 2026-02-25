@@ -28,7 +28,7 @@ export function Input({
       {label && (
         <label
           htmlFor={id}
-          className="text-[14px] font-medium text-text-primary mb-[6px] block"
+          className="mb-1.5 block text-[14px] font-medium text-text-primary"
         >
           {label}
         </label>
@@ -43,7 +43,7 @@ export function Input({
       {error && (
         <p
           id={errorId}
-          className="text-[12px] font-semibold tracking-[0.08em] uppercase text-accent-start mt-[6px]"
+          className="mt-[6px] text-[12px] font-semibold tracking-[0.08em] text-accent-start uppercase"
         >
           {error}
         </p>

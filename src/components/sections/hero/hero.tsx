@@ -54,7 +54,7 @@ export function Hero({
     <section
       id="hero"
       ref={sectionRef}
-      className={cn('relative min-h-svh flex items-center overflow-hidden', className)}
+      className={cn('relative flex min-h-svh items-center overflow-hidden', className)}
     >
       {/* Ambient blob — background layer */}
       <HeroBlobFallback />
@@ -65,7 +65,7 @@ export function Hero({
         <div className="max-w-180">
           {/* Overline — role/title label */}
           <p
-            className={cn('text-caption text-text-primary reveal', isVisible && 'visible')}
+            className={cn('text-caption reveal text-text-primary', isVisible && 'visible')}
           >
             {overline}
           </p>
@@ -75,13 +75,13 @@ export function Hero({
             text={headline}
             gradientWords={gradientWords}
             isVisible={isVisible}
-            className="text-hero text-text-primary mt-xl"
+            className="text-hero mt-xl text-text-primary"
           />
 
           {/* Supporting body — clearly subordinate to headline */}
           <p
             className={cn(
-              'text-heading text-text-primary mt-xl max-w-[50ch] reveal reveal-delay-1',
+              'text-heading reveal reveal-delay-1 mt-xl max-w-[50ch] text-text-primary',
               isVisible && 'visible',
             )}
           >
@@ -90,7 +90,7 @@ export function Hero({
 
           {/* CTA — separated with more space to anchor the action */}
           <div
-            className={cn('mt-2xl reveal reveal-delay-2', isVisible && 'visible')}
+            className={cn('reveal reveal-delay-2 mt-2xl', isVisible && 'visible')}
           >
             <LinkButton variant="primary" size="lg" showArrow href={ctaHref}>
               {ctaLabel}
@@ -101,7 +101,7 @@ export function Hero({
           {hint && (
             <p
               className={cn(
-                'text-caption text-text-disabled mt-lg tracking-wide reveal reveal-delay-3',
+                'text-caption reveal reveal-delay-3 mt-lg tracking-wide text-text-disabled',
                 isVisible && 'visible',
               )}
               style={{ textTransform: 'none', fontWeight: 400, letterSpacing: '0.02em' }}

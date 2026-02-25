@@ -7,7 +7,7 @@ interface FooterProps {
 export function Footer({ className = '' }: FooterProps): React.JSX.Element {
   return (
     <SectionContainer as="footer" variant="narrow" className={className}>
-      <p className="text-body-sm text-text-secondary text-center">
+      <p className="text-body-sm text-center text-text-secondary">
         Built with care. Left open to change.
       </p>
     </SectionContainer>

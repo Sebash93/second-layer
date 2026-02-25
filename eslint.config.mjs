@@ -1,15 +1,38 @@
 // For more info, see https://github.com/storybookjs/eslint-plugin-storybook#configuration-flat-config-format
+import { dirname } from "node:path";
+import { fileURLToPath } from "node:url";
+
 import storybook from "eslint-plugin-storybook";
+import tailwindcss from "eslint-plugin-tailwindcss";
 
 import { defineConfig, globalIgnores } from "eslint/config";
 import nextVitals from "eslint-config-next/core-web-vitals";
 import nextTs from "eslint-config-next/typescript";
 import unicorn from "eslint-plugin-unicorn";
 
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
 const eslintConfig = defineConfig([
   ...nextVitals,
   ...nextTs,
   globalIgnores([".next/**", "out/**", "build/**", "next-env.d.ts"]),
+  // Tailwind CSS — class ordering, shorthand, contradictions
+  {
+    plugins: { tailwindcss },
+    settings: {
+      tailwindcss: {
+        config: `${__dirname}/src/app/globals.css`,
+        callees: ["cn", "cva", "clsx", "twMerge"],
+      },
+    },
+    rules: {
+      "tailwindcss/classnames-order": "warn",
+      "tailwindcss/enforces-shorthand": "warn",
+      "tailwindcss/no-contradicting-classname": "warn",
+      "tailwindcss/no-unnecessary-arbitrary-value": "warn",
+      "tailwindcss/no-custom-classname": "off",
+    },
+  },
   // Unicorn — curated best-practice rules
   {
     plugins: { unicorn },

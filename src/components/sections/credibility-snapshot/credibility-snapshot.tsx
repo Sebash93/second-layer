@@ -65,10 +65,10 @@ export function CredibilitySnapshot({
     <section
       id="credibility"
       ref={sectionRef}
-      className={cn('container-narrow min-h-svh flex flex-col justify-center py-3xl', className)}
+      className={cn('container-narrow flex min-h-svh flex-col justify-center py-3xl', className)}
     >
       {/* Overline */}
-      <p className={cn('text-display text-text-primary reveal', isVisible && 'visible')}>
+      <p className={cn('text-display reveal text-text-primary', isVisible && 'visible')}>
         {overline}
       </p>
 
@@ -89,7 +89,7 @@ export function CredibilitySnapshot({
               className={cn(
                 'text-body-lg',
                 'flex items-center gap-[10px]',
-                'py-sm origin-left cursor-pointer',
+                'origin-left cursor-pointer py-sm',
                 'border-b border-border-subtle last:border-b-0',
                 'reveal',
                 `reveal-delay-${Math.min(i + 1, 4)}`,
@@ -127,7 +127,7 @@ export function CredibilitySnapshot({
       {/* Closing note */}
       <p
         className={cn(
-          'text-body-lg text-text-secondary mt-2xl reveal reveal-delay-4',
+          'text-body-lg reveal reveal-delay-4 mt-2xl text-text-secondary',
           isVisible && 'visible',
         )}
       >

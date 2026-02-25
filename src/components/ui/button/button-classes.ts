@@ -1,21 +1,21 @@
 import { cva, type VariantProps } from 'class-variance-authority';
 
 export const buttonVariants = cva(
-  'inline-flex items-center justify-center gap-2 rounded-sm font-body cursor-pointer focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-accent-tint-12 disabled:opacity-50 disabled:pointer-events-none',
+  'inline-flex cursor-pointer items-center justify-center gap-2 rounded-sm font-body focus-visible:ring-[3px] focus-visible:ring-accent-tint-12 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50',
   {
     variants: {
       variant: {
         primary:
-          'text-white font-semibold shadow-[0_2px_16px_rgba(255,107,53,0.25)] hover:-translate-y-0.5 hover:shadow-glow-strong hover:[background-image:var(--gradient-primary-hover)] active:translate-y-0 transition-all duration-300 ease-[var(--ease-out)]',
+          'font-semibold text-white shadow-[0_2px_16px_rgba(255,107,53,0.25)] transition-all duration-300 ease-[var(--ease-out)] hover:-translate-y-0.5 hover:[background-image:var(--gradient-primary-hover)] hover:shadow-glow-strong active:translate-y-0',
         secondary:
-          'bg-bg-primary text-text-primary font-semibold border border-border-default hover:border-accent-start hover:text-accent-start transition-all duration-[250ms] ease-[var(--ease-out)]',
+          'border border-border-default bg-bg-primary font-semibold text-text-primary transition-all duration-[250ms] ease-[var(--ease-out)] hover:border-accent-start hover:text-accent-start',
         ghost:
-          'bg-transparent text-text-secondary font-medium hover:text-text-primary transition-colors duration-[250ms] ease-[ease]',
+          'bg-transparent font-medium text-text-secondary transition-colors duration-[250ms] ease-[ease] hover:text-text-primary',
       },
       size: {
-        sm: 'px-md py-sm text-[13px] min-h-8',
-        default: 'px-[32px] py-[14px] text-[15px] min-h-10',
-        lg: 'px-[40px] py-md text-[16px] min-h-12',
+        sm: 'min-h-8 px-md py-sm text-[13px]',
+        default: 'min-h-10 px-[32px] py-[14px] text-[15px]',
+        lg: 'min-h-12 px-[40px] py-md text-[16px]',
       },
     },
     compoundVariants: [

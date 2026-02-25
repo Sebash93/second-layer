@@ -9,11 +9,11 @@ const cardVariants = cva(
     variants: {
       variant: {
         default:
-          'bg-bg-primary border border-border-default rounded-md p-lg hover:-translate-y-1 hover:shadow-md hover:border-transparent',
+          'rounded-md border border-border-default bg-bg-primary p-lg hover:-translate-y-1 hover:border-transparent hover:shadow-md',
         accent:
-          'bg-bg-primary border border-border-default rounded-md p-lg hover:-translate-y-1 hover:shadow-md hover:border-transparent group relative overflow-hidden',
+          'group relative overflow-hidden rounded-md border border-border-default bg-bg-primary p-lg hover:-translate-y-1 hover:border-transparent hover:shadow-md',
         featured:
-          'bg-accent-tint-5 border border-accent-tint-12 rounded-xl p-3xl',
+          'rounded-xl border border-accent-tint-12 bg-accent-tint-5 p-3xl',
       },
     },
     defaultVariants: {
@@ -39,7 +39,7 @@ export function Card({
     <div className={cn(cardVariants({ variant }), className)} {...rest}>
       {variant === 'accent' && (
         <span
-          className="absolute top-0 left-0 right-0 h-[3px] scale-x-0 origin-left transition-transform duration-[400ms] ease-[var(--ease-out)] group-hover:scale-x-100"
+          className="absolute top-0 right-0 left-0 h-[3px] origin-left scale-x-0 transition-transform duration-[400ms] ease-[var(--ease-out)] group-hover:scale-x-100"
           style={{ backgroundImage: 'var(--gradient-primary)' }}
           aria-hidden="true"
         />
