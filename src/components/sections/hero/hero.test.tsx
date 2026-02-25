@@ -30,10 +30,10 @@ describe('Hero', () => {
     expect(section?.tagName).toBe('SECTION');
   });
 
-  it('renders badge text', () => {
+  it('renders overline text', () => {
     render(<Hero />);
     expect(
-      screen.getByText('Senior Product Engineer \u00B7 Fractal CTO'),
+      screen.getByText(/Senior Product Engineer/),
     ).toBeInTheDocument();
   });
 
@@ -48,9 +48,12 @@ describe('Hero', () => {
   it('renders body text', () => {
     render(<Hero />);
     expect(
-      screen.getByText(
-        'With attention to product intent, architecture, and how decisions age over time.',
-      ),
+      screen.getByText((_content, element) => {
+        return (
+          element?.tagName === 'P' &&
+          element.textContent?.includes('With attention to product intent') === true
+        );
+      }),
     ).toBeInTheDocument();
   });
 

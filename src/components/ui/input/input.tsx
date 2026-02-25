@@ -2,6 +2,8 @@
 
 import { type ComponentPropsWithRef, useId } from 'react';
 
+import { cn } from '@/lib/utils';
+
 interface InputProps extends ComponentPropsWithRef<'input'> {
   label?: string;
   error?: string;
@@ -14,28 +16,26 @@ export function Input({
   label,
   error,
   id: idProp,
-  className = '',
+  className,
   ...rest
 }: InputProps): React.JSX.Element {
   const generatedId = useId();
   const id = idProp ?? generatedId;
   const errorId = `${id}-error`;
 
-  const inputClasses = `${inputBaseClasses} ${error ? 'border-accent-start' : ''} ${className}`.trim();
-
   return (
     <div>
       {label && (
         <label
           htmlFor={id}
-          className="text-[14px] font-medium text-text-primary mb-[6px] block"
+          className="mb-1.5 block text-[14px] font-medium text-text-primary"
         >
           {label}
         </label>
       )}
       <input
         id={id}
-        className={inputClasses}
+        className={cn(inputBaseClasses, error && 'border-accent-start', className)}
         aria-invalid={error ? true : undefined}
         aria-describedby={error ? errorId : undefined}
         {...rest}
@@ -43,7 +43,7 @@ export function Input({
       {error && (
         <p
           id={errorId}
-          className="text-[12px] font-semibold tracking-[0.08em] uppercase text-accent-start mt-[6px]"
+          className="mt-[6px] text-[12px] font-semibold tracking-[0.08em] text-accent-start uppercase"
         >
           {error}
         </p>

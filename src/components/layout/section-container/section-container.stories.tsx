@@ -32,9 +32,9 @@ type Story = StoryObj<typeof meta>;
 export const Main: Story = {
   args: {
     children: (
-      <div className="bg-bg-tertiary rounded-md p-xl text-center">
+      <div className="rounded-md bg-bg-tertiary p-xl text-center">
         <h2 className="text-display text-text-primary">Main container</h2>
-        <p className="text-body text-text-body mt-md">
+        <p className="text-body mt-md text-text-body">
           Max width 1200px with responsive padding.
         </p>
       </div>
@@ -46,7 +46,7 @@ export const Narrow: Story = {
   args: {
     variant: 'narrow',
     children: (
-      <div className="bg-bg-tertiary rounded-md p-xl text-center">
+      <div className="rounded-md bg-bg-tertiary p-xl text-center">
         <p className="text-body text-text-body">
           Narrow container at 720px max width, ideal for text-heavy content sections.
         </p>
@@ -60,7 +60,7 @@ export const AsFooter: Story = {
     as: 'footer',
     variant: 'narrow',
     children: (
-      <p className="text-body-sm text-text-secondary text-center">
+      <p className="text-body-sm text-center text-text-secondary">
         Rendered as a footer element.
       </p>
     ),

@@ -1,5 +1,7 @@
 'use client';
 
+import { cn } from '@/lib/utils';
+
 type WordRevealElement = 'h1' | 'h2' | 'p';
 
 interface WordRevealProps {
@@ -23,21 +25,21 @@ export function WordReveal({
   staggerDelay = 0.08,
   as: Tag = 'h1',
   isVisible = true,
-  className = '',
+  className,
 }: WordRevealProps): React.JSX.Element {
   const words = text.split(/\s+/);
   const gradientSet = new Set(gradientWords.map((w) => w.toLowerCase()));
 
   return (
-    <Tag className={`${className}`.trim()} style={{ perspective: '600px' }}>
+    <Tag className={cn(className)} style={{ perspective: '600px' }}>
       {words.map((word, i) => {
         const isGradient = gradientSet.has(stripPunctuation(word).toLowerCase());
         const delay = baseDelay + i * staggerDelay;
 
         return (
-          <span key={`${word}-${i}`}>
+          <span key={`${word}-${String(i)}`}>
             <span
-              className={isGradient ? 'gradient-text' : ''}
+              className={cn(isGradient && 'gradient-text')}
               style={{
                 display: 'inline-block',
                 opacity: isVisible ? undefined : 0,

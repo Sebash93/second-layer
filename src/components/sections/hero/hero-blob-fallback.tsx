@@ -1,13 +1,15 @@
+import { cn } from '@/lib/utils';
+
 interface HeroBlobFallbackProps {
   className?: string;
 }
 
 export function HeroBlobFallback({
-  className = '',
+  className,
 }: HeroBlobFallbackProps): React.JSX.Element {
   return (
     <div
-      className={`pointer-events-none absolute inset-0 ${className}`.trim()}
+      className={cn('pointer-events-none absolute inset-0', className)}
       aria-hidden="true"
     >
       {/* Primary warm glow — anchored to right edge, half visible */}
@@ -30,7 +32,7 @@ export function HeroBlobFallback({
       />
       {/* Secondary cool accent — smaller, below primary */}
       <div
-        className="absolute bottom-[15%] -right-[8%] h-[25%] w-[20%] opacity-[0.06] blur-[70px]"
+        className="absolute -right-[8%] bottom-[15%] h-[25%] w-[20%] opacity-[0.06] blur-[70px]"
         style={{
           background: 'var(--gradient-secondary)',
           borderRadius: '50%',

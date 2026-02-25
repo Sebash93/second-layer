@@ -5,6 +5,8 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import { createNoise3D } from 'simplex-noise';
 import * as THREE from 'three';
 
+import { cn } from '@/lib/utils';
+
 /* ——————————————————————————————————————————————
    Custom shader material — soft gradient glow
    —————————————————————————————————————————————— */
@@ -74,8 +76,8 @@ function AmbientBlob(): React.JSX.Element {
       uTime: { value: 0 },
       uNoiseFreq: { value: 0.8 },
       uNoiseAmp: { value: 0.15 },
-      uColorWarm: { value: new THREE.Color('#FF6B35') },
-      uColorCool: { value: new THREE.Color('#3B82F6') },
+      uColorWarm: { value: new THREE.Color('#9CA3AF') },
+      uColorCool: { value: new THREE.Color('#FF6B35') },
       uOpacity: { value: 0.25 },
     }),
     [],
@@ -133,7 +135,7 @@ function AmbientBlob(): React.JSX.Element {
     positions.needsUpdate = true;
     geo.computeVertexNormals();
 
-    uniforms.uTime.value = time * 10;
+    meshRef.current.material.uniforms.uTime.value = time * 10;
   });
 
   return (
@@ -159,12 +161,12 @@ interface HeroBlobProps {
   className?: string;
 }
 
-export function HeroBlob({ className = '' }: HeroBlobProps): React.JSX.Element {
+export function HeroBlob({ className }: HeroBlobProps): React.JSX.Element {
   const dpr = Math.min(window.devicePixelRatio, 2);
 
   return (
     <div
-      className={`pointer-events-none absolute inset-0 ${className}`.trim()}
+      className={cn('pointer-events-none absolute inset-0', className)}
       aria-hidden="true"
     >
       <Canvas

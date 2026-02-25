@@ -4,6 +4,7 @@ import type { ReactNode } from 'react';
 
 import dynamic from 'next/dynamic';
 
+import { cn } from '@/lib/utils';
 import { LinkButton } from '@/components/ui/link-button/link-button';
 import { useIntersectionObserver } from '@/components/hooks/use-intersection-observer';
 
@@ -18,8 +19,8 @@ const HeroBlobDynamic = dynamic(
 const defaultBody = (
   <>
     <mark className="highlight">Fast to build</mark> and{' '}
-    <mark className="highlight">safe to learn from.</mark> With attention to
-    product intent, architecture, and how decisions age over time.
+    <mark className="highlight">safe to learn from</mark>. Creating with attention to
+    product intent and architecture.
   </>
 );
 
@@ -42,7 +43,7 @@ export function Hero({
   ctaLabel = 'Start a conversation',
   ctaHref = '#contact',
   hint = 'Press to explore what\u2019s underneath.',
-  className = '',
+  className,
 }: HeroProps): React.JSX.Element {
   const [sectionRef, isVisible] = useIntersectionObserver<HTMLElement>({
     threshold: 0.15,
@@ -53,7 +54,7 @@ export function Hero({
     <section
       id="hero"
       ref={sectionRef}
-      className={`relative min-h-svh flex items-center overflow-hidden ${className}`.trim()}
+      className={cn('relative flex min-h-svh items-center overflow-hidden', className)}
     >
       {/* Ambient blob — background layer */}
       <HeroBlobFallback />
@@ -61,10 +62,10 @@ export function Hero({
 
       {/* Content — foreground */}
       <div className="container-main relative z-10 py-3xl">
-        <div className="max-w-180">
+        <div className="max-w-narrow">
           {/* Overline — role/title label */}
           <p
-            className={`text-caption text-text-primary reveal reveal ${isVisible ? 'visible' : ''}`}
+            className={cn('text-caption reveal text-text-primary', isVisible && 'visible')}
           >
             {overline}
           </p>
@@ -74,19 +75,22 @@ export function Hero({
             text={headline}
             gradientWords={gradientWords}
             isVisible={isVisible}
-            className="text-hero text-text-primary mt-xl"
+            className="text-hero mt-xl text-text-primary"
           />
 
           {/* Supporting body — clearly subordinate to headline */}
           <p
-            className={`text-heading text-text-primary mt-xl max-w-[50ch] reveal reveal-delay-1 ${isVisible ? 'visible' : ''}`}
+            className={cn(
+              'text-heading reveal reveal-delay-1 mt-xl max-w-[50ch] text-text-primary',
+              isVisible && 'visible',
+            )}
           >
             {body}
           </p>
 
           {/* CTA — separated with more space to anchor the action */}
           <div
-            className={`mt-2xl reveal reveal-delay-2 ${isVisible ? 'visible' : ''}`}
+            className={cn('reveal reveal-delay-2 mt-2xl', isVisible && 'visible')}
           >
             <LinkButton variant="primary" size="lg" showArrow href={ctaHref}>
               {ctaLabel}
@@ -96,7 +100,10 @@ export function Hero({
           {/* Hint — smallest, most subdued element */}
           {hint && (
             <p
-              className={`text-caption text-text-disabled mt-lg tracking-wide reveal reveal-delay-3 ${isVisible ? 'visible' : ''}`}
+              className={cn(
+                'text-caption reveal reveal-delay-3 mt-lg tracking-wide text-text-disabled',
+                isVisible && 'visible',
+              )}
               style={{ textTransform: 'none', fontWeight: 400, letterSpacing: '0.02em' }}
             >
               {hint}

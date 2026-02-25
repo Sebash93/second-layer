@@ -76,19 +76,19 @@ export const TextColors: Story = {
   render: () => (
     <div className="flex flex-col gap-lg">
       <div className="flex items-baseline gap-lg">
-        <span className="text-overline text-text-secondary w-[140px] shrink-0">text-primary</span>
+        <span className="text-overline w-[140px] shrink-0 text-text-secondary">text-primary</span>
         <p className="text-heading text-text-primary">Headings and high-emphasis text</p>
       </div>
       <div className="flex items-baseline gap-lg">
-        <span className="text-overline text-text-secondary w-[140px] shrink-0">text-body</span>
+        <span className="text-overline w-[140px] shrink-0 text-text-secondary">text-body</span>
         <p className="text-heading text-text-body">Body paragraphs and general content</p>
       </div>
       <div className="flex items-baseline gap-lg">
-        <span className="text-overline text-text-secondary w-[140px] shrink-0">text-secondary</span>
+        <span className="text-overline w-[140px] shrink-0 text-text-secondary">text-secondary</span>
         <p className="text-heading text-text-secondary">Captions, metadata, supporting text</p>
       </div>
       <div className="flex items-baseline gap-lg">
-        <span className="text-overline text-text-secondary w-[140px] shrink-0">text-disabled</span>
+        <span className="text-overline w-[140px] shrink-0 text-text-secondary">text-disabled</span>
         <p className="text-heading text-text-disabled">Placeholders and disabled labels</p>
       </div>
     </div>
@@ -154,7 +154,7 @@ export const FontFamilies: Story = {
         <p className="font-heading text-[32px] font-bold tracking-tight text-text-primary">
           Sora is used for headings, display text, and titles.
         </p>
-        <p className="font-heading text-body-lg text-text-body">
+        <p className="text-body-lg font-heading text-text-body">
           ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz 0123456789
         </p>
       </div>
@@ -166,7 +166,7 @@ export const FontFamilies: Story = {
         <p className="font-body text-[32px] font-bold tracking-tight text-text-primary">
           Plus Jakarta Sans is used for body, UI, and labels.
         </p>
-        <p className="font-body text-body-lg text-text-body">
+        <p className="text-body-lg font-body text-text-body">
           ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz 0123456789
         </p>
       </div>
