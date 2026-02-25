@@ -2,6 +2,7 @@
 
 import { useState, type ReactNode } from 'react';
 
+import { cn } from '@/lib/utils';
 import { useIntersectionObserver } from '@/components/hooks/use-intersection-observer';
 
 const defaultCredentials = [
@@ -49,7 +50,7 @@ export function CredibilitySnapshot({
   overline = 'Experience',
   credentials = defaultCredentials,
   closingNote = defaultClosingNote,
-  className = '',
+  className,
 }: CredibilitySnapshotProps): React.JSX.Element {
   const [sectionRef, isVisible] = useIntersectionObserver<HTMLElement>({
     threshold: 0.15,
@@ -58,17 +59,16 @@ export function CredibilitySnapshot({
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
-  const v = isVisible ? 'visible' : '';
   const focalIndex = hoveredIndex ?? activeIndex;
 
   return (
     <section
       id="credibility"
       ref={sectionRef}
-      className={`container-narrow min-h-svh flex flex-col justify-center py-3xl ${className}`.trim()}
+      className={cn('container-narrow min-h-svh flex flex-col justify-center py-3xl', className)}
     >
       {/* Overline */}
-      <p className={`text-display text-text-primary reveal ${v}`}>
+      <p className={cn('text-display text-text-primary reveal', isVisible && 'visible')}>
         {overline}
       </p>
 
@@ -85,25 +85,23 @@ export function CredibilitySnapshot({
 
           return (
             <li
-              key={i}
-              className={[
+              key={line}
+              className={cn(
                 'text-body-lg',
                 'flex items-center gap-[10px]',
                 'py-sm origin-left cursor-pointer',
                 'border-b border-border-subtle last:border-b-0',
                 'reveal',
                 `reveal-delay-${Math.min(i + 1, 4)}`,
-                v,
-              ].join(' ')}
+                isVisible && 'visible',
+              )}
               style={{
                 transform: `scale(${scale})`,
                 opacity: focalIndex !== null ? opacity : undefined,
                 paddingLeft: isFocal ? 8 : 0,
                 color: isFocal
                   ? 'var(--color-accent-start)'
-                  : isActive
-                    ? 'var(--color-text-primary)'
-                    : 'var(--color-text-primary)',
+                  : 'var(--color-text-primary)',
                 transition: 'transform 0.35s var(--ease-out), opacity 0.35s var(--ease-out), padding-left 0.35s var(--ease-out), color 0.2s ease-out',
               }}
               onMouseEnter={() => setHoveredIndex(i)}
@@ -128,7 +126,10 @@ export function CredibilitySnapshot({
 
       {/* Closing note */}
       <p
-        className={`text-body-lg text-text-secondary mt-2xl reveal reveal-delay-4 ${v}`}
+        className={cn(
+          'text-body-lg text-text-secondary mt-2xl reveal reveal-delay-4',
+          isVisible && 'visible',
+        )}
       >
         {closingNote}
       </p>

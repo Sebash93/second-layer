@@ -1,6 +1,6 @@
 export { Badge } from './badge/badge';
 export { Button } from './button/button';
-export { type ButtonSize, type ButtonVariant } from './button/button-classes';
+export { type ButtonSize, type ButtonVariant, buttonVariants } from './button/button-classes';
 export { Card } from './card/card';
 export { Input } from './input/input';
 export { LinkButton } from './link-button/link-button';

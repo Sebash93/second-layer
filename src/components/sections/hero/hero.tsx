@@ -4,6 +4,7 @@ import type { ReactNode } from 'react';
 
 import dynamic from 'next/dynamic';
 
+import { cn } from '@/lib/utils';
 import { LinkButton } from '@/components/ui/link-button/link-button';
 import { useIntersectionObserver } from '@/components/hooks/use-intersection-observer';
 
@@ -42,7 +43,7 @@ export function Hero({
   ctaLabel = 'Start a conversation',
   ctaHref = '#contact',
   hint = 'Press to explore what\u2019s underneath.',
-  className = '',
+  className,
 }: HeroProps): React.JSX.Element {
   const [sectionRef, isVisible] = useIntersectionObserver<HTMLElement>({
     threshold: 0.15,
@@ -53,7 +54,7 @@ export function Hero({
     <section
       id="hero"
       ref={sectionRef}
-      className={`relative min-h-svh flex items-center overflow-hidden ${className}`.trim()}
+      className={cn('relative min-h-svh flex items-center overflow-hidden', className)}
     >
       {/* Ambient blob — background layer */}
       <HeroBlobFallback />
@@ -64,7 +65,7 @@ export function Hero({
         <div className="max-w-180">
           {/* Overline — role/title label */}
           <p
-            className={`text-caption text-text-primary reveal reveal ${isVisible ? 'visible' : ''}`}
+            className={cn('text-caption text-text-primary reveal', isVisible && 'visible')}
           >
             {overline}
           </p>
@@ -79,14 +80,17 @@ export function Hero({
 
           {/* Supporting body — clearly subordinate to headline */}
           <p
-            className={`text-heading text-text-primary mt-xl max-w-[50ch] reveal reveal-delay-1 ${isVisible ? 'visible' : ''}`}
+            className={cn(
+              'text-heading text-text-primary mt-xl max-w-[50ch] reveal reveal-delay-1',
+              isVisible && 'visible',
+            )}
           >
             {body}
           </p>
 
           {/* CTA — separated with more space to anchor the action */}
           <div
-            className={`mt-2xl reveal reveal-delay-2 ${isVisible ? 'visible' : ''}`}
+            className={cn('mt-2xl reveal reveal-delay-2', isVisible && 'visible')}
           >
             <LinkButton variant="primary" size="lg" showArrow href={ctaHref}>
               {ctaLabel}
@@ -96,7 +100,10 @@ export function Hero({
           {/* Hint — smallest, most subdued element */}
           {hint && (
             <p
-              className={`text-caption text-text-disabled mt-lg tracking-wide reveal reveal-delay-3 ${isVisible ? 'visible' : ''}`}
+              className={cn(
+                'text-caption text-text-disabled mt-lg tracking-wide reveal reveal-delay-3',
+                isVisible && 'visible',
+              )}
               style={{ textTransform: 'none', fontWeight: 400, letterSpacing: '0.02em' }}
             >
               {hint}

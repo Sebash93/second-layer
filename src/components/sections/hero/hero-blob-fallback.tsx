@@ -1,13 +1,15 @@
+import { cn } from '@/lib/utils';
+
 interface HeroBlobFallbackProps {
   className?: string;
 }
 
 export function HeroBlobFallback({
-  className = '',
+  className,
 }: HeroBlobFallbackProps): React.JSX.Element {
   return (
     <div
-      className={`pointer-events-none absolute inset-0 ${className}`.trim()}
+      className={cn('pointer-events-none absolute inset-0', className)}
       aria-hidden="true"
     >
       {/* Primary warm glow — anchored to right edge, half visible */}

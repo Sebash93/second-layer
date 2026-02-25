@@ -1,3 +1,5 @@
+import { cn } from '@/lib/utils';
+
 interface NumberedListItem {
   title: string;
   description?: string;
@@ -8,12 +10,12 @@ interface NumberedListProps {
   className?: string;
 }
 
-export function NumberedList({ items, className = '' }: NumberedListProps): React.JSX.Element {
+export function NumberedList({ items, className }: NumberedListProps): React.JSX.Element {
   return (
-    <ol className={`list-none p-0 m-0 ${className}`.trim()}>
+    <ol className={cn('list-none p-0 m-0', className)}>
       {items.map((item, index) => (
         <li
-          key={index}
+          key={item.title}
           className="flex items-start gap-md py-md border-b border-border-subtle last:border-b-0"
         >
           <span

@@ -1,9 +1,10 @@
 import { type ComponentPropsWithRef, type ReactNode } from 'react';
 
+import { cn } from '@/lib/utils';
 import {
   type ButtonSize,
   type ButtonVariant,
-  getButtonClasses,
+  buttonVariants,
 } from '@/components/ui/button/button-classes';
 
 interface LinkButtonProps extends ComponentPropsWithRef<'a'> {
@@ -21,14 +22,12 @@ export function LinkButton({
   variant = 'primary',
   size = 'default',
   showArrow = false,
-  className = '',
+  className,
   style,
   href,
   children,
   ...rest
 }: LinkButtonProps): React.JSX.Element {
-  const classes = `${getButtonClasses(variant, size)} ${showArrow ? 'group' : ''} ${className}`.trim();
-
   const linkStyle =
     variant === 'primary'
       ? { backgroundImage: 'var(--gradient-primary)', ...style }
@@ -39,7 +38,13 @@ export function LinkButton({
     : {};
 
   return (
-    <a className={classes} style={linkStyle} href={href} {...externalProps} {...rest}>
+    <a
+      className={cn(buttonVariants({ variant, size }), showArrow && 'group', className)}
+      style={linkStyle}
+      href={href}
+      {...externalProps}
+      {...rest}
+    >
       {children}
       {showArrow && (
         <span className="transition-transform duration-[250ms] ease-[var(--ease-out)] group-hover:translate-x-1">

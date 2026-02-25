@@ -1,6 +1,8 @@
 import { type ComponentPropsWithRef, type ReactNode } from 'react';
 
-import { type ButtonSize, type ButtonVariant, getButtonClasses } from './button-classes';
+import { cn } from '@/lib/utils';
+
+import { type ButtonSize, type ButtonVariant, buttonVariants } from './button-classes';
 
 interface ButtonProps extends ComponentPropsWithRef<'button'> {
   variant?: ButtonVariant;
@@ -13,20 +15,22 @@ export function Button({
   variant = 'primary',
   size = 'default',
   showArrow = false,
-  className = '',
+  className,
   style,
   children,
   ...rest
 }: ButtonProps): React.JSX.Element {
-  const classes = `${getButtonClasses(variant, size)} ${showArrow ? 'group' : ''} ${className}`.trim();
-
   const buttonStyle =
     variant === 'primary'
       ? { backgroundImage: 'var(--gradient-primary)', ...style }
       : style;
 
   return (
-    <button className={classes} style={buttonStyle} {...rest}>
+    <button
+      className={cn(buttonVariants({ variant, size }), showArrow && 'group', className)}
+      style={buttonStyle}
+      {...rest}
+    >
       {children}
       {showArrow && (
         <span className="transition-transform duration-[250ms] ease-[var(--ease-out)] group-hover:translate-x-1">

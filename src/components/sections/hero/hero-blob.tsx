@@ -5,6 +5,8 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import { createNoise3D } from 'simplex-noise';
 import * as THREE from 'three';
 
+import { cn } from '@/lib/utils';
+
 /* ——————————————————————————————————————————————
    Custom shader material — soft gradient glow
    —————————————————————————————————————————————— */
@@ -133,7 +135,7 @@ function AmbientBlob(): React.JSX.Element {
     positions.needsUpdate = true;
     geo.computeVertexNormals();
 
-    uniforms.uTime.value = time * 10;
+    meshRef.current.material.uniforms.uTime.value = time * 10;
   });
 
   return (
@@ -159,12 +161,12 @@ interface HeroBlobProps {
   className?: string;
 }
 
-export function HeroBlob({ className = '' }: HeroBlobProps): React.JSX.Element {
+export function HeroBlob({ className }: HeroBlobProps): React.JSX.Element {
   const dpr = Math.min(window.devicePixelRatio, 2);
 
   return (
     <div
-      className={`pointer-events-none absolute inset-0 ${className}`.trim()}
+      className={cn('pointer-events-none absolute inset-0', className)}
       aria-hidden="true"
     >
       <Canvas

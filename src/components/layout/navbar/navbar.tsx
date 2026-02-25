@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 
+import { cn } from '@/lib/utils';
 import { useScrollPosition } from '@/components/hooks/use-scroll-position';
 import { LinkButton } from '@/components/ui/link-button/link-button';
 
@@ -26,7 +27,10 @@ export function Navbar({ links, ctaLabel, ctaHref }: NavbarProps): React.JSX.Ele
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 right-0 z-[100] h-[64px] flex items-center justify-between bg-white/85 backdrop-blur-[20px] border-b transition-[border-color] duration-[400ms] ease-[ease] ${scrolled ? 'border-border-default' : 'border-transparent'}`}
+        className={cn(
+          'fixed top-0 left-0 right-0 z-[100] h-[64px] flex items-center justify-between bg-white/85 backdrop-blur-[20px] border-b transition-[border-color] duration-[400ms] ease-[ease]',
+          scrolled ? 'border-border-default' : 'border-transparent',
+        )}
         style={{ paddingInline: 'var(--container-padding)' }}
       >
         <div className="hidden md:flex items-center gap-xl">
