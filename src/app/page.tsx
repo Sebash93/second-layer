@@ -1,5 +1,10 @@
+import { Hero, CredibilitySnapshot } from '@/components/sections';
+
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center" />
+    <main>
+      <Hero />
+      <CredibilitySnapshot />
+    </main>
   );
 }
