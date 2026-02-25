@@ -167,7 +167,7 @@ The atmosphere gradient. Used exclusively for decorative elements: section divid
 | `text-body-lg` | 18px | 400 | 0 | 1.65 | Plus Jakarta Sans | Lead paragraphs, emphasis |
 | `text-body` | 16px | 400 | 0 | 1.6 | Plus Jakarta Sans | Body text, descriptions |
 | `text-body-sm` | 14px | 400 | 0 | 1.5 | Plus Jakarta Sans | Secondary body, metadata |
-| `text-caption` | 12px | 600 | 0.08em | 1.4 | Plus Jakarta Sans | Labels, uppercase captions |
+| `text-caption` | 16px | 600 | 0.08em | 1.4 | Plus Jakarta Sans | Labels, uppercase captions |
 | `text-overline` | 11px | 600 | 0.1em | 1.4 | Plus Jakarta Sans | Section labels, always uppercase |
 
 ### 2.3 Typography Rules
@@ -183,7 +183,7 @@ The atmosphere gradient. Used exclusively for decorative elements: section divid
 
 | Token | Desktop | Tablet (≤1024px) | Mobile (≤640px) |
 |-------|---------|------------------|-----------------|
-| `text-hero` | 72px | 56px | 40px |
+| `text-hero` | 72px | 56px | 52px |
 | `text-display` | 44px | 36px | 28px |
 | `text-heading` | 26px | 24px | 22px |
 | `text-body-lg` | 18px | 18px | 17px |
@@ -959,38 +959,163 @@ transform-origin: left;
 
 ---
 
-## 8. Three.js Hero Blob Spec
+## 8. Hero Section Requirements
+
+### 8.1 Layout
+
+- Full viewport height: `min-h-svh` with content vertically centered via `flex items-center`
+- Single-column content (no split layout): `max-w-180` container, text-focused
+- `overflow-hidden` on the section to clip ambient blob elements at edges
+- Content sits above blob via `z-10`
+
+### 8.2 Text Hierarchy (top to bottom)
+
+| Element | Style | Role |
+|---------|-------|------|
+| Overline | `text-caption text-text-primary` (16px, 600, uppercase) | Name + title: "Sebastian H · Senior Product Engineer · Fractal CTO" |
+| Headline (h1) | `text-hero` (clamp 52px–72px), WordReveal animation | Short, punchy statement: "Working with teams to ship MVPs." |
+| Body | `text-heading text-text-primary` (clamp 22–26px) with `<mark class="highlight">` | Supporting detail with highlighted key phrases |
+| CTA | `LinkButton` primary, size lg, with arrow | "Start a conversation" |
+| Hint | `text-caption text-text-disabled`, lowercase override, 400 weight | Atmospheric prompt, non-essential |
+
+**Key rules:**
+- Headline must be short — the hero scale (up to 72px) demands brevity
+- Mobile minimum for `text-hero` is 52px (not the default 40px) for impact on small screens
+- `gradientWords` applies `.gradient-text` to specific words in the headline (e.g. "ship", "MVPs")
+- Body accepts `ReactNode`, not just strings, to support `<mark>` highlights
+
+### 8.3 Highlight Utility (`.highlight`)
+
+A natural hand-drawn marker effect using the primary gradient:
+
+```css
+.highlight {
+  background-color: transparent;
+  color: inherit;
+  background-image: linear-gradient(120deg,
+    rgba(255, 107, 53, 0.0) 0%,      /* fade in — soft edge */
+    rgba(255, 107, 53, 0.35) 8%,      /* accent-start at 35% opacity */
+    rgba(255, 94, 122, 0.35) 92%,     /* accent-end at 35% opacity */
+    rgba(255, 94, 122, 0.0) 100%);    /* fade out — soft edge */
+  background-size: 100% 45%;          /* covers lower half of text */
+  background-position: 0 85%;         /* sits at the baseline */
+  box-decoration-break: clone;        /* wraps correctly across lines */
+}
+```
+
+**Usage rules:**
+- Always use `<mark class="highlight">` for semantic correctness
+- Must set `background-color: transparent` and `color: inherit` to override browser UA styles
+- 120deg angle gives the organic, slightly diagonal hand-drawn feel
+- 35% opacity is the right balance — visible as a confident marker stroke without overpowering text
+- Use sparingly — highlight 2–3 key phrases per section max
+
+### 8.4 Ambient Blob (Background)
+
+The blob is a **subtle atmospheric background layer**, not a competing visual element.
+
+**CSS Fallback (`HeroBlobFallback`):**
+- Renders on all screen sizes as the base ambient layer
+- Three gradient glows anchored to the right edge, peeking in from offscreen
+- `pointer-events-none` + `aria-hidden="true"`
+- Primary glow: `opacity-[0.10]`, `blur-[80px]`, positioned at `-right-[15%]`
+- Morphing accent: `opacity-[0.08]`, `blur-[60px]`, with `blob-morph` + `blob-float` animation
+- Secondary (blue) accent: `opacity-[0.06]`, `blur-[70px]`, positioned below primary
+- No `overflow-hidden` on the fallback container (the section handles clipping)
+
+**Three.js Blob (`HeroBlob`):**
+- Custom shader material with fresnel-based transparency (not solid mesh)
+- Mixes both brand colors: warm `#FF6B35` + cool `#3B82F6`
+- Overall opacity: `0.25` with fresnel floor at `0.6` (visible core, soft edges)
+- Geometry: `IcosahedronGeometry(1.1, 48)` — compact, not dominating
+- Mouse parallax: lerp `0.05`, rotation multiplier `0.4` — noticeably reactive
+- Simplex noise vertex displacement for organic morphing
+- Canvas: `alpha: true`, transparent background, absolute-positioned behind content
+- `pointer-events-none` + `aria-hidden="true"`
+
+**Key rules:**
+- The blob must never compete with the text — it's atmosphere, not content
+- Must be visible on mobile (CSS fallback anchored to right edge, half offscreen)
+- Both warm (primary) and cool (secondary) brand colors should be present
+- Mouse interaction should be perceptible but smooth, not jumpy
+
+### 8.5 Section Pattern
+
+All landing page sections should use `min-h-svh` to fill the viewport height.
+`SectionContainer` has a `fullHeight` prop (default `true`) that applies `min-h-svh flex flex-col justify-center`.
+Set `fullHeight={false}` for short sections like Footer.
+
+---
+
+## 8b. Credibility Snapshot Section Requirements
+
+### 8b.1 Layout
+
+- Full viewport height: `min-h-svh` with content vertically centered via `flex flex-col justify-center`
+- `container-narrow` (720px max-width) — text-heavy, single-column layout
+- No cards, no CTAs — pure typographic section that establishes trust
+
+### 8b.2 Text Hierarchy (top to bottom)
+
+| Element | Style | Role |
+|---------|-------|------|
+| Overline | `text-overline text-text-secondary` (11px, 600, uppercase) | Section label: "Experience" |
+| Credential lines | `text-body-lg font-medium text-text-primary` (18px, 500) | Four trust-building statements |
+| Closing note | `text-body-lg text-text-secondary italic` | Reflective note with `.highlight` on key phrase |
+
+### 8b.3 Credential List Pattern
+
+Custom list (not `DotList`) to support `text-body-lg` sizing and hover interactions:
+- 6px accent dot (`bg-border-default`, turns `bg-accent-start` on hover)
+- `py-sm` padding, `border-b border-border-subtle` between items (last item has no border)
+- Hover: `pl-sm` indent + `text-accent-start` color shift
+- Staggered reveal: `reveal-delay-1` through `reveal-delay-4`
+- `group` class on `<li>` for coordinated dot color transition
+
+### 8b.4 Closing Note
+
+- Separated by `mt-2xl` (48px) from the credential list
+- Uses `<mark class="highlight">` on "before code." for the marker effect
+- `reveal-delay-4` for the last reveal in the stagger sequence
+
+### 8b.5 Props
+
+| Prop | Type | Default |
+|------|------|---------|
+| `overline` | `string` | `'Experience'` |
+| `credentials` | `string[]` | Four default credential lines |
+| `closingNote` | `ReactNode` | "Most of the work happens **before code.**" |
+| `className` | `string` | `''` |
+
+---
+
+## 9. Three.js Blob Technical Spec
 
 ```
 GEOMETRY
-  Base: IcosahedronGeometry(1, 64)
+  Base: IcosahedronGeometry(1.1, 48)
   Displacement: Simplex noise on vertex normals
-  Noise frequency: 0.8–1.2
-  Noise amplitude: 0.15–0.25
-  Noise speed: 0.0003/frame
+  Noise frequency: 0.6
+  Noise amplitude: 0.12
+  Noise speed: 0.00015/frame
 
 MATERIAL
-  Type: MeshStandardMaterial or custom ShaderMaterial
-  Color map: Gradient texture (Naranja → Coral)
-  Metalness: 0.1
-  Roughness: 0.4
-  Environment: Soft studio HDRI
-
-LIGHTING
-  Ambient: #FFFFFF @ 0.6
-  Directional: #FFF5F0 @ 0.8 (top-right)
-  Rim: #FF5E7A @ 0.3 (behind)
+  Type: Custom ShaderMaterial (vertex + fragment)
+  Colors: Warm #FF6B35 + Cool #3B82F6 mixed by normal direction
+  Fresnel: pow(1.0 - abs(dot(normal, view)), 2.0)
+  Alpha: uOpacity(0.25) * (0.6 + fresnel * 0.4)
+  Transparent: true, depthWrite: false, doubleSide
 
 INTERACTION
-  Mouse parallax: 5–10% shift toward cursor
+  Mouse parallax: rotation 0.4x cursor position
   Lerp factor: 0.05
-  Mobile: Gyroscope or static morph
+  Mobile: CSS fallback only (no Three.js)
 
 PERFORMANCE
-  Canvas: 50% hero width (right side)
+  Canvas: absolute positioned, full section, alpha: true
   Pixel ratio: min(devicePixelRatio, 2)
-  Antialias: desktop only
-  Fallback: CSS blob-morph + blob-float animations
+  Antialias: true
+  Fallback: CSS gradient glows with blob-morph animation
 ```
 
 ---
