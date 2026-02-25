@@ -65,14 +65,16 @@ export function CredibilitySnapshot({
     <section
       id="credibility"
       ref={sectionRef}
-      className={cn('container-narrow flex min-h-svh flex-col justify-center py-3xl', className)}
+      className={cn('flex min-h-svh items-center', className)}
     >
-      {/* Overline */}
-      <p className={cn('text-display reveal text-text-primary', isVisible && 'visible')}>
-        {overline}
-      </p>
+      <div className='container-main py-3xl'>
+        {/* Overline */}
+        <p className={cn('text-display reveal text-text-primary', isVisible && 'visible')}>
+          {overline}
+        </p>
 
       {/* Credential lines */}
+
       <ul
         className="mt-xl list-none p-0"
         onMouseLeave={() => setHoveredIndex(null)}
@@ -88,7 +90,7 @@ export function CredibilitySnapshot({
               key={line}
               className={cn(
                 'text-body-lg',
-                'flex items-center gap-[10px]',
+                'flex items-center gap-2.5',
                 'origin-left cursor-pointer py-sm',
                 'border-b border-border-subtle last:border-b-0',
                 'reveal',
@@ -133,6 +135,7 @@ export function CredibilitySnapshot({
       >
         {closingNote}
       </p>
+      </div>
     </section>
   );
 }

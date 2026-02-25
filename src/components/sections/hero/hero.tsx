@@ -19,8 +19,8 @@ const HeroBlobDynamic = dynamic(
 const defaultBody = (
   <>
     <mark className="highlight">Fast to build</mark> and{' '}
-    <mark className="highlight">safe to learn from.</mark> With attention to
-    product intent, architecture, and how decisions age over time.
+    <mark className="highlight">safe to learn from</mark>. Creating with attention to
+    product intent and architecture.
   </>
 );
 
@@ -62,7 +62,7 @@ export function Hero({
 
       {/* Content — foreground */}
       <div className="container-main relative z-10 py-3xl">
-        <div className="max-w-180">
+        <div className="max-w-narrow">
           {/* Overline — role/title label */}
           <p
             className={cn('text-caption reveal text-text-primary', isVisible && 'visible')}
