@@ -1,8 +1,6 @@
 ---
 name: ui-designer
 description: Design intuitive, accessible, and visually coherent interfaces aligned with brand and product goals.
-user-invocable: true
-argument-hint: [component or screen]
 metadata:
   short-description: UI design + design systems
   version: "1.0.0"
